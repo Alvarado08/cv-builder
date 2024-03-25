@@ -1,5 +1,6 @@
 import Button from "./components/ui/Button";
 import Input from "./components/ui/Input";
+import Section from "./components/Section";
 
 function App() {
   return (
@@ -16,7 +17,25 @@ function App() {
       <section className="flex items-center gap-3">
         <Input label="Name" />
         <Input label="Email" type="email" />
-        <Input label="Password" type="date" />
+        <Input label="Date" type="date" />
+      </section>
+      <h1 className="text-xl font-bold mb-3">Sections</h1>
+      <section className="space-y-3">
+        <Section title="Personal Information">
+          <Input label="Name" />
+          <Input label="Email" type="email" />
+        </Section>
+        <Section title="Education">
+          <Input label="Name" />
+          <Input label="Major" />
+          <Input label="Date" type="date" />
+        </Section>
+        <Section title="Experience" isActive="true" type="multiple">
+          <Input label="Company" />
+          <Input label="Role" />
+          <Input label="Responsibility" />
+          <Input label="Date" type="date" />
+        </Section>
       </section>
     </main>
   );
