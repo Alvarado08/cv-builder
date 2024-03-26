@@ -1,4 +1,10 @@
-export default function Input({ label, type = "text", value, onChange }) {
+export default function Input({
+  label,
+  type = "text",
+  value,
+  onChange,
+  isDisabled,
+}) {
   return (
     <label className="form-control w-full max-w-xs">
       <div className="label">
@@ -9,6 +15,7 @@ export default function Input({ label, type = "text", value, onChange }) {
         name={label}
         value={value}
         onChange={onChange}
+        // disabled={!isDisabled}
         className="input input-bordered w-full max-w-xs"
       />
       <div className="label"></div>

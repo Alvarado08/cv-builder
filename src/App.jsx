@@ -30,7 +30,7 @@ function App() {
           <Input label="Major" />
           <Input label="Date" type="date" />
         </Section>
-        <Section title="Experience" isActive="true" type="multiple">
+        <Section title="Experience" type="multiple">
           <Input label="Company" />
           <Input label="Role" />
           <Input label="Responsibility" />
