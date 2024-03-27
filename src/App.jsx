@@ -1,36 +1,46 @@
-import Button from "./components/ui/Button";
+import { useState } from "react";
 import Input from "./components/ui/Input";
 import Section from "./components/Section";
 
 function App() {
+  const [active, setActive] = useState(0);
+  const handleSectionToggle = (sectionIndex) => {
+    if (active !== 0) {
+      setActive(0);
+    } else {
+      setActive(sectionIndex);
+    }
+  };
   return (
     <main className="p-5">
-      <h1 className="text-xl font-bold mb-3">Buttons</h1>
-      <section className="flex items-center gap-3 mb-3">
-        <Button name="Save" color="btn-primary" />
-        <Button name="Edit" color="btn-secondary" />
-        <Button name="Add" color="btn-warning" />
-        <Button name="Remove" color="btn-accent" />
-        <Button name="Download" color="btn-neutral" />
-      </section>
-      <h1 className="text-xl font-bold mb-3">Inputs</h1>
-      <section className="flex items-center gap-3">
-        <Input label="Name" />
-        <Input label="Email" type="email" />
-        <Input label="Date" type="date" />
-      </section>
       <h1 className="text-xl font-bold mb-3">Sections</h1>
       <section className="space-y-3">
-        <Section title="Personal Information">
+        <Section
+          title="Personal Information"
+          isActive={active === 1}
+          onToggle={handleSectionToggle}
+          sectionIndex={1}
+        >
           <Input label="Name" />
           <Input label="Email" type="email" />
         </Section>
-        <Section title="Education">
+        <Section
+          title="Education"
+          isActive={active === 2}
+          onToggle={handleSectionToggle}
+          sectionIndex={2}
+        >
           <Input label="Name" />
           <Input label="Major" />
           <Input label="Date" type="date" />
         </Section>
-        <Section title="Experience" type="multiple">
+        <Section
+          title="Experience"
+          type="multiple"
+          isActive={active === 3}
+          onToggle={handleSectionToggle}
+          sectionIndex={3}
+        >
           <Input label="Company" />
           <Input label="Role" />
           <Input label="Responsibility" />

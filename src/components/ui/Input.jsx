@@ -15,7 +15,7 @@ export default function Input({
         name={label}
         value={value}
         onChange={onChange}
-        // disabled={!isDisabled}
+        disabled={isDisabled}
         className="input input-bordered w-full max-w-xs"
       />
       <div className="label"></div>
