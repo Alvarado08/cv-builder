@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Input from "./components/ui/Input";
+import ColorPicker from "./components/ui/ColorPicker";
 import Section from "./components/Section";
 
 function App() {
@@ -15,14 +16,21 @@ function App() {
     <main className="p-5">
       <h1 className="text-xl font-bold mb-3">Sections</h1>
       <section className="space-y-3">
+        <Section title="Theme" type="color">
+          <ColorPicker />
+        </Section>
         <Section
           title="Personal Information"
           isActive={active === 1}
           onToggle={handleSectionToggle}
           sectionIndex={1}
         >
-          <Input label="Name" />
-          <Input label="Email" type="email" />
+          <Input label="Name" isDisabled={active === 0 || active !== 1} />
+          <Input
+            label="Email"
+            type="email"
+            isDisabled={active === 0 || active !== 1}
+          />
         </Section>
         <Section
           title="Education"
@@ -30,9 +38,13 @@ function App() {
           onToggle={handleSectionToggle}
           sectionIndex={2}
         >
-          <Input label="Name" />
-          <Input label="Major" />
-          <Input label="Date" type="date" />
+          <Input label="Name" isDisabled={active === 0 || active !== 2} />
+          <Input label="Major" isDisabled={active === 0 || active !== 2} />
+          <Input
+            label="Date"
+            type="date"
+            isDisabled={active === 0 || active !== 2}
+          />
         </Section>
         <Section
           title="Experience"
@@ -41,10 +53,17 @@ function App() {
           onToggle={handleSectionToggle}
           sectionIndex={3}
         >
-          <Input label="Company" />
-          <Input label="Role" />
-          <Input label="Responsibility" />
-          <Input label="Date" type="date" />
+          <Input label="Company" isDisabled={active === 0 || active !== 3} />
+          <Input label="Role" isDisabled={active === 0 || active !== 3} />
+          <Input
+            label="Responsibility"
+            isDisabled={active === 0 || active !== 3}
+          />
+          <Input
+            label="Date"
+            type="date"
+            isDisabled={active === 0 || active !== 3}
+          />
         </Section>
       </section>
     </main>
