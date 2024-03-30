@@ -31,6 +31,13 @@ export default function Section({
               onClick={() => onToggle(sectionIndex)}
             />
           ))}
+        {isActive && (
+          <Button
+            name="Cancel"
+            color="btn-accent"
+            onClick={() => onToggle(sectionIndex)}
+          />
+        )}
       </div>
     </section>
   );
