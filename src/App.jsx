@@ -2,6 +2,7 @@ import { useState } from "react";
 import Input from "./components/ui/Input";
 import ColorPicker from "./components/ui/ColorPicker";
 import Section from "./components/Section";
+import colors from "./utils/colors";
 
 function App() {
   const [active, setActive] = useState(0);
@@ -17,7 +18,13 @@ function App() {
       <h1 className="text-xl font-bold mb-3">Sections</h1>
       <section className="space-y-3">
         <Section title="Theme" type="color">
-          <ColorPicker />
+          {colors.map((color) => (
+            <ColorPicker
+              colorName={color.name}
+              colorValue={color.value}
+              key={color.value}
+            />
+          ))}
         </Section>
         <Section
           title="Personal Information"
