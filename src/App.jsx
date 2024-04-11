@@ -4,9 +4,11 @@ import ColorPicker from "./components/ui/ColorPicker";
 import Section from "./components/Section";
 import Cv from "./components/Cv";
 import colors from "./utils/colors";
+import person from "./utils/person";
 
 function App() {
   const [active, setActive] = useState(0);
+  const [personalInfo, setPersonalInfo] = useState(person);
   const [selectedColor, setSelectedColor] = useState("bg-blue-500");
   const handleSectionToggle = (sectionIndex) => {
     if (active !== 0) {
@@ -47,6 +49,16 @@ function App() {
               type="email"
               isDisabled={active === 0 || active !== 1}
             />
+            <Input
+              label="LinkedIn"
+              type="text"
+              isDisabled={active === 0 || active !== 1}
+            />
+            <Input
+              label="Website"
+              type="text"
+              isDisabled={active === 0 || active !== 1}
+            />
           </Section>
           <Section
             title="Education"
@@ -84,7 +96,7 @@ function App() {
         </section>
         <div>
           <h1 className="text-xl font-bold mb-3">CV</h1>
-          <Cv theme={selectedColor} />
+          <Cv theme={selectedColor} person={personalInfo} />
         </div>
       </div>
     </main>
