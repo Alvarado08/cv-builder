@@ -4,8 +4,8 @@ import LinkedIn from "./icons/LinkedIn";
 import Website from "./icons/Website";
 export default function Cv({ person, theme }) {
   return (
-    <div>
-      <section className={`p-5 ${theme} rounded space-y-3`}>
+    <div className="h-full md:h-[50rem]">
+      <section className={`p-8 ${theme} rounded space-y-3`}>
         <h1
           className={`text-3xl font-bold ${
             theme === "bg-blue-500" && "text-white"
@@ -27,6 +27,10 @@ export default function Cv({ person, theme }) {
             <Website />
           </Link>
         </div>
+      </section>
+      <section className="h-full p-8 border-solid rounded-b border border-r-2 border-l-2 border-b-2 grid grid-cols-2 gap-4">
+        <h1 className="text-xl font-bold">Experience</h1>
+        <h1 className="text-xl font-bold">Education</h1>
       </section>
     </div>
   );

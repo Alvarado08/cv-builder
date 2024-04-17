@@ -8,14 +8,17 @@ const person = {
   education: {
     name: "University of Example",
     major: "Computer Science",
-    date: "2020-2023",
+    startDate: "2020-01-15",
+    endDate: "2022-06-15",
+    presentStatus: false,
   },
   experience: [
     {
       company: "Example Company",
       role: "Software Engineer",
       responsibility: "Developed new features for the company's website.",
-      date: "2022-2023",
+      startDate: "2020-04-20",
+      endDate: "2022-06-15",
     },
   ],
 };

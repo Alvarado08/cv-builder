@@ -4,6 +4,7 @@ import ColorPicker from "./components/ui/ColorPicker";
 import Section from "./components/Section";
 import Cv from "./components/Cv";
 import colors from "./utils/colors";
+import CheckBox from "./components/ui/CheckBox";
 import person from "./utils/person";
 
 function App() {
@@ -21,84 +22,217 @@ function App() {
     setSelectedColor(color);
   };
   return (
-    <main className="p-5">
-      <div className="grid md:grid-cols-2 gap-4">
-        <section className="space-y-3">
-          <h1 className="text-xl font-bold mb-3">Sections</h1>
-          <Section title="Theme" type="color">
-            {colors.map((color) => (
-              <ColorPicker
-                key={color.value}
-                colorName={color.name}
-                colorValue={color.value}
-                classValue={color.class}
-                isSelected={selectedColor === color.class}
-                onColorChange={handleColorChange}
-              />
-            ))}
-          </Section>
-          <Section
-            title="Personal Information"
-            isActive={active === 1}
-            onToggle={handleSectionToggle}
-            sectionIndex={1}
-          >
-            <Input label="Name" isDisabled={active === 0 || active !== 1} />
-            <Input
-              label="Email"
-              type="email"
-              isDisabled={active === 0 || active !== 1}
+    <main className="p-5 grid md:grid-cols-2 gap-4">
+      <section className="space-y-3">
+        <h1 className="text-xl font-bold mb-3">Sections</h1>
+        <Section title="Theme" type="color">
+          {colors.map((color) => (
+            <ColorPicker
+              key={color.value}
+              colorName={color.name}
+              colorValue={color.value}
+              classValue={color.class}
+              isSelected={selectedColor === color.class}
+              onColorChange={handleColorChange}
             />
+          ))}
+        </Section>
+        <Section
+          title="Personal Information"
+          isActive={active === 1}
+          onToggle={handleSectionToggle}
+          sectionIndex={1}
+        >
+          <Input
+            label="Name"
+            value={personalInfo.general.name}
+            onChange={(e) => {
+              setPersonalInfo({
+                ...personalInfo,
+                general: {
+                  ...personalInfo.general,
+                  name: e.target.value,
+                },
+              });
+            }}
+            isDisabled={active === 0 || active !== 1}
+          />
+          <Input
+            label="Email"
+            value={personalInfo.general.email}
+            onChange={(e) => {
+              setPersonalInfo({
+                ...personalInfo,
+                general: {
+                  ...personalInfo.general,
+                  email: e.target.value,
+                },
+              });
+            }}
+            type="email"
+            isDisabled={active === 0 || active !== 1}
+          />
+          <Input
+            label="LinkedIn"
+            value={personalInfo.general.linkedin}
+            onChange={(e) => {
+              setPersonalInfo({
+                ...personalInfo,
+                general: {
+                  ...personalInfo.general,
+                  linkedin: e.target.value,
+                },
+              });
+            }}
+            type="text"
+            isDisabled={active === 0 || active !== 1}
+          />
+          <Input
+            label="Website"
+            value={personalInfo.general.website}
+            onChange={(e) => {
+              setPersonalInfo({
+                ...personalInfo,
+                general: {
+                  ...personalInfo.general,
+                  website: e.target.value,
+                },
+              });
+            }}
+            type="text"
+            isDisabled={active === 0 || active !== 1}
+          />
+        </Section>
+        <Section
+          title="Education"
+          isActive={active === 2}
+          onToggle={handleSectionToggle}
+          sectionIndex={2}
+        >
+          <Input
+            label="Name"
+            value={personalInfo.education.name}
+            onChange={(e) => {
+              setPersonalInfo({
+                ...personalInfo,
+                education: {
+                  ...personalInfo.education,
+                  name: e.target.value,
+                },
+              });
+            }}
+            isDisabled={active === 0 || active !== 2}
+          />
+          <Input
+            label="Major"
+            value={personalInfo.education.major}
+            onChange={(e) => {
+              setPersonalInfo({
+                ...personalInfo,
+                education: {
+                  ...personalInfo.education,
+                  major: e.target.value,
+                },
+              });
+            }}
+            isDisabled={active === 0 || active !== 2}
+          />
+          <Input
+            label="Start Date"
+            type="date"
+            value={personalInfo.education.startDate}
+            onChange={(e) => {
+              setPersonalInfo({
+                ...personalInfo,
+                education: {
+                  ...personalInfo.education,
+                  startDate: e.target.value,
+                },
+              });
+            }}
+            isDisabled={active === 0 || active !== 2}
+          />
+          {!personalInfo.education.presentStatus && (
             <Input
-              label="LinkedIn"
-              type="text"
-              isDisabled={active === 0 || active !== 1}
-            />
-            <Input
-              label="Website"
-              type="text"
-              isDisabled={active === 0 || active !== 1}
-            />
-          </Section>
-          <Section
-            title="Education"
-            isActive={active === 2}
-            onToggle={handleSectionToggle}
-            sectionIndex={2}
-          >
-            <Input label="Name" isDisabled={active === 0 || active !== 2} />
-            <Input label="Major" isDisabled={active === 0 || active !== 2} />
-            <Input
-              label="Date"
+              label="End Date"
               type="date"
+              value={personalInfo.education.endDate}
+              onChange={(e) => {
+                setPersonalInfo({
+                  ...personalInfo,
+                  education: {
+                    ...personalInfo.education,
+                    endDate: e.target.value,
+                  },
+                });
+              }}
               isDisabled={active === 0 || active !== 2}
             />
-          </Section>
-          <Section
-            title="Experience"
-            type="multiple"
-            isActive={active === 3}
-            onToggle={handleSectionToggle}
-            sectionIndex={3}
-          >
-            <Input label="Company" isDisabled={active === 0 || active !== 3} />
-            <Input label="Role" isDisabled={active === 0 || active !== 3} />
-            <Input
-              label="Responsibility"
-              isDisabled={active === 0 || active !== 3}
+          )}
+          {personalInfo.education.presentStatus ? (
+            <CheckBox
+              name="Present"
+              checked={personalInfo.education.presentStatus}
+              isDisabled={active === 0 || active !== 2}
+              onChange={() => {
+                setPersonalInfo({
+                  ...personalInfo,
+                  education: {
+                    ...personalInfo.education,
+                    presentStatus: !personalInfo.education.presentStatus,
+                  },
+                });
+              }}
             />
-            <Input
-              label="Date"
-              type="date"
-              isDisabled={active === 0 || active !== 3}
-            />
-          </Section>
-        </section>
-        <div>
-          <h1 className="text-xl font-bold mb-3">CV</h1>
-          <Cv theme={selectedColor} person={personalInfo} />
-        </div>
-      </div>
+          ) : (
+            !personalInfo.education.presentStatus &&
+            active === 2 && (
+              <CheckBox
+                name="Present"
+                checked={personalInfo.education.presentStatus}
+                isDisabled={active === 0 || active !== 2}
+                onChange={() => {
+                  setPersonalInfo({
+                    ...personalInfo,
+                    education: {
+                      ...personalInfo.education,
+                      presentStatus: !personalInfo.education.presentStatus,
+                    },
+                  });
+                }}
+              />
+            )
+          )}
+        </Section>
+        <Section
+          title="Experience"
+          type="multiple"
+          isActive={active === 3}
+          onToggle={handleSectionToggle}
+          sectionIndex={3}
+        >
+          <Input label="Company" isDisabled={active === 0 || active !== 3} />
+          <Input label="Role" isDisabled={active === 0 || active !== 3} />
+          <Input
+            label="Responsibility"
+            isDisabled={active === 0 || active !== 3}
+          />
+          <Input
+            label="Start Date"
+            type="date"
+            isDisabled={active === 0 || active !== 3}
+          />
+          <Input
+            label="End Date"
+            type="date"
+            isDisabled={active === 0 || active !== 3}
+          />
+        </Section>
+      </section>
+      <section>
+        <h1 className="text-xl font-bold mb-3">CV</h1>
+        <Cv theme={selectedColor} person={personalInfo} />
+      </section>
     </main>
   );
 }
