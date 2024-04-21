@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Input from "./components/ui/Input";
 import ColorPicker from "./components/ui/ColorPicker";
 import Section from "./components/Section";
@@ -14,6 +16,9 @@ function App() {
   const handleSectionToggle = (sectionIndex) => {
     if (active !== 0) {
       setActive(0);
+      toast.success("Section information saved !", {
+        position: "bottom-right",
+      });
     } else {
       setActive(sectionIndex);
     }
@@ -233,6 +238,7 @@ function App() {
         <h1 className="text-xl font-bold mb-3">CV</h1>
         <Cv theme={selectedColor} person={personalInfo} />
       </section>
+      <ToastContainer autoClose={2500} />
     </main>
   );
 }
