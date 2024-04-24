@@ -12,11 +12,12 @@ import person from "./utils/person";
 function App() {
   const [active, setActive] = useState(0);
   const [personalInfo, setPersonalInfo] = useState(person);
+  const [localPersonalInfo, setLocalPersonalInfo] = useState(person);
   const [selectedColor, setSelectedColor] = useState("bg-blue-500");
   const handleSectionToggle = (sectionIndex) => {
     if (active !== 0) {
       setActive(0);
-      toast.success("Section information saved !", {
+      toast.success("Saved !", {
         position: "bottom-right",
       });
     } else {
