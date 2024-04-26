@@ -143,7 +143,7 @@ function App() {
             onChange={handlePersonalInfoChange2}
             isDisabled={active === 0 || active !== 2}
           />
-          {!personalInfo.education.presentStatus && (
+          {!localPersonalInfo.education.presentStatus && (
             <Input
               label="End Date"
               name="endDate"
@@ -153,34 +153,34 @@ function App() {
               isDisabled={active === 0 || active !== 2}
             />
           )}
-          {personalInfo.education.presentStatus ? (
+          {localPersonalInfo.education.presentStatus ? (
             <CheckBox
               name="Present"
-              checked={personalInfo.education.presentStatus}
+              checked={localPersonalInfo.education.presentStatus}
               isDisabled={active === 0 || active !== 2}
               onChange={() => {
-                setPersonalInfo({
-                  ...personalInfo,
+                setLocalPersonalInfo({
+                  ...localPersonalInfo,
                   education: {
-                    ...personalInfo.education,
-                    presentStatus: !personalInfo.education.presentStatus,
+                    ...localPersonalInfo.education,
+                    presentStatus: !localPersonalInfo.education.presentStatus,
                   },
                 });
               }}
             />
           ) : (
-            !personalInfo.education.presentStatus &&
+            !localPersonalInfo.education.presentStatus &&
             active === 2 && (
               <CheckBox
                 name="Present"
-                checked={personalInfo.education.presentStatus}
+                checked={localPersonalInfo.education.presentStatus}
                 isDisabled={active === 0 || active !== 2}
                 onChange={() => {
-                  setPersonalInfo({
-                    ...personalInfo,
+                  setLocalPersonalInfo({
+                    ...localPersonalInfo,
                     education: {
-                      ...personalInfo.education,
-                      presentStatus: !personalInfo.education.presentStatus,
+                      ...localPersonalInfo.education,
+                      presentStatus: !localPersonalInfo.education.presentStatus,
                     },
                   });
                 }}

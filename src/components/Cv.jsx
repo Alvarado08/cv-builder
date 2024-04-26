@@ -40,8 +40,25 @@ export default function Cv({ person, theme }) {
         </div>
       </section>
       <section className="h-full p-8 border-solid rounded-b border border-r-2 border-l-2 border-b-2 grid grid-cols-2 gap-4">
-        <h1 className="text-xl font-bold">Experience</h1>
-        <h1 className="text-xl font-bold">Education</h1>
+        <section>
+          <h1 className="text-xl font-bold">Experience</h1>
+        </section>
+        <section>
+          <h1 className="text-xl font-bold">Education</h1>
+          <article>
+            <h3>{person.education.major}</h3>
+            <h4>{person.education.school}</h4>
+            <div className="flex items-center gap-1">
+              <span>{person.education.startDate}</span>
+              <span>-</span>
+              <span>
+                {person.education.presentStatus
+                  ? "Present"
+                  : `${person.education.endDate}`}
+              </span>
+            </div>
+          </article>
+        </section>
       </section>
     </div>
   );
