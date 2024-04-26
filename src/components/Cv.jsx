@@ -8,21 +8,32 @@ export default function Cv({ person, theme }) {
       <section className={`p-8 ${theme} rounded space-y-3`}>
         <h1
           className={`text-3xl font-bold ${
-            theme === "bg-blue-500" && "text-white"
+            theme === "bg-blue-500" || theme === "bg-purple-500"
+              ? "text-white"
+              : null
           }`}
         >
           {person.general.name}
         </h1>
         <div className="flex items-center gap-4">
-          <Link name={person.general.email} theme={theme === "bg-blue-500"}>
+          <Link
+            name={person.general.email}
+            theme={theme === "bg-blue-500" || theme === "bg-purple-500"}
+          >
             {person.general.email}
             <Email />
           </Link>
-          <Link name={person.general.linkedin} theme={theme === "bg-blue-500"}>
+          <Link
+            name={person.general.linkedin}
+            theme={theme === "bg-blue-500" || theme === "bg-purple-500"}
+          >
             LinkedIn
             <LinkedIn />
           </Link>
-          <Link name={person.general.website} theme={theme === "bg-blue-500"}>
+          <Link
+            name={person.general.website}
+            theme={theme === "bg-blue-500" || theme === "bg-purple-500"}
+          >
             Website
             <Website />
           </Link>

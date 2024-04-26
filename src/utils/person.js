@@ -6,7 +6,7 @@ const person = {
     website: "https://example.com",
   },
   education: {
-    name: "University of Example",
+    school: "University of Example",
     major: "Computer Science",
     startDate: "2020-01-15",
     endDate: "2022-06-15",

@@ -1,5 +1,6 @@
 export default function Input({
   label,
+  name,
   type = "text",
   value,
   onChange,
@@ -12,7 +13,7 @@ export default function Input({
       </div>
       <input
         type={type}
-        name={label}
+        name={name}
         value={value}
         onChange={onChange}
         disabled={isDisabled}

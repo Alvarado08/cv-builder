@@ -14,8 +14,10 @@ function App() {
   const [personalInfo, setPersonalInfo] = useState(person);
   const [localPersonalInfo, setLocalPersonalInfo] = useState(person);
   const [selectedColor, setSelectedColor] = useState("bg-blue-500");
+
   const handleSectionToggle = (sectionIndex) => {
     if (active !== 0) {
+      setPersonalInfo(localPersonalInfo);
       setActive(0);
       toast.success("Saved !", {
         position: "bottom-right",
@@ -24,9 +26,39 @@ function App() {
       setActive(sectionIndex);
     }
   };
+  const handleCancelToggle = () => {
+    setLocalPersonalInfo(personalInfo);
+    setActive(0);
+    toast.error("Cancelled !", {
+      position: "bottom-right",
+    });
+  };
   const handleColorChange = (color) => {
     setSelectedColor(color);
   };
+  const handlePersonalInfoChange = (e) => {
+    setLocalPersonalInfo({
+      ...localPersonalInfo,
+      general: {
+        ...localPersonalInfo.general,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+  const handlePersonalInfoChange2 = (e) => {
+    setLocalPersonalInfo({
+      ...localPersonalInfo,
+      general: {
+        ...localPersonalInfo.general,
+        [e.target.name]: e.target.value,
+      },
+      education: {
+        ...localPersonalInfo.education,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+
   return (
     <main className="p-5 grid md:grid-cols-2 gap-4">
       <section className="space-y-3">
@@ -47,64 +79,37 @@ function App() {
           title="Personal Information"
           isActive={active === 1}
           onToggle={handleSectionToggle}
+          onCancel={handleCancelToggle}
           sectionIndex={1}
         >
           <Input
             label="Name"
-            value={personalInfo.general.name}
-            onChange={(e) => {
-              setPersonalInfo({
-                ...personalInfo,
-                general: {
-                  ...personalInfo.general,
-                  name: e.target.value,
-                },
-              });
-            }}
+            name="name"
+            value={localPersonalInfo.general.name}
+            onChange={handlePersonalInfoChange2}
             isDisabled={active === 0 || active !== 1}
           />
           <Input
             label="Email"
-            value={personalInfo.general.email}
-            onChange={(e) => {
-              setPersonalInfo({
-                ...personalInfo,
-                general: {
-                  ...personalInfo.general,
-                  email: e.target.value,
-                },
-              });
-            }}
+            name="email"
+            value={localPersonalInfo.general.email}
+            onChange={handlePersonalInfoChange2}
             type="email"
             isDisabled={active === 0 || active !== 1}
           />
           <Input
             label="LinkedIn"
-            value={personalInfo.general.linkedin}
-            onChange={(e) => {
-              setPersonalInfo({
-                ...personalInfo,
-                general: {
-                  ...personalInfo.general,
-                  linkedin: e.target.value,
-                },
-              });
-            }}
+            name="linkedin"
+            value={localPersonalInfo.general.linkedin}
+            onChange={handlePersonalInfoChange2}
             type="text"
             isDisabled={active === 0 || active !== 1}
           />
           <Input
             label="Website"
-            value={personalInfo.general.website}
-            onChange={(e) => {
-              setPersonalInfo({
-                ...personalInfo,
-                general: {
-                  ...personalInfo.general,
-                  website: e.target.value,
-                },
-              });
-            }}
+            name="website"
+            value={localPersonalInfo.general.website}
+            onChange={handlePersonalInfoChange2}
             type="text"
             isDisabled={active === 0 || active !== 1}
           />
@@ -113,65 +118,38 @@ function App() {
           title="Education"
           isActive={active === 2}
           onToggle={handleSectionToggle}
+          onCancel={handleCancelToggle}
           sectionIndex={2}
         >
           <Input
-            label="Name"
-            value={personalInfo.education.name}
-            onChange={(e) => {
-              setPersonalInfo({
-                ...personalInfo,
-                education: {
-                  ...personalInfo.education,
-                  name: e.target.value,
-                },
-              });
-            }}
+            label="School"
+            name="school"
+            value={localPersonalInfo.education.school}
+            onChange={handlePersonalInfoChange2}
             isDisabled={active === 0 || active !== 2}
           />
           <Input
             label="Major"
-            value={personalInfo.education.major}
-            onChange={(e) => {
-              setPersonalInfo({
-                ...personalInfo,
-                education: {
-                  ...personalInfo.education,
-                  major: e.target.value,
-                },
-              });
-            }}
+            name="major"
+            value={localPersonalInfo.education.major}
+            onChange={handlePersonalInfoChange2}
             isDisabled={active === 0 || active !== 2}
           />
           <Input
             label="Start Date"
+            name="startDate"
             type="date"
-            value={personalInfo.education.startDate}
-            onChange={(e) => {
-              setPersonalInfo({
-                ...personalInfo,
-                education: {
-                  ...personalInfo.education,
-                  startDate: e.target.value,
-                },
-              });
-            }}
+            value={localPersonalInfo.education.startDate}
+            onChange={handlePersonalInfoChange2}
             isDisabled={active === 0 || active !== 2}
           />
           {!personalInfo.education.presentStatus && (
             <Input
               label="End Date"
+              name="endDate"
               type="date"
-              value={personalInfo.education.endDate}
-              onChange={(e) => {
-                setPersonalInfo({
-                  ...personalInfo,
-                  education: {
-                    ...personalInfo.education,
-                    endDate: e.target.value,
-                  },
-                });
-              }}
+              value={localPersonalInfo.education.endDate}
+              onChange={handlePersonalInfoChange2}
               isDisabled={active === 0 || active !== 2}
             />
           )}
@@ -215,21 +193,29 @@ function App() {
           type="multiple"
           isActive={active === 3}
           onToggle={handleSectionToggle}
+          onCancel={handleCancelToggle}
           sectionIndex={3}
         >
-          <Input label="Company" isDisabled={active === 0 || active !== 3} />
+          <Input
+            label="Company"
+            name="company"
+            isDisabled={active === 0 || active !== 3}
+          />
           <Input label="Role" isDisabled={active === 0 || active !== 3} />
           <Input
             label="Responsibility"
+            name="responsibility"
             isDisabled={active === 0 || active !== 3}
           />
           <Input
             label="Start Date"
+            name="startDate"
             type="date"
             isDisabled={active === 0 || active !== 3}
           />
           <Input
             label="End Date"
+            name="endDate"
             type="date"
             isDisabled={active === 0 || active !== 3}
           />
@@ -237,7 +223,7 @@ function App() {
       </section>
       <section>
         <h1 className="text-xl font-bold mb-3">CV</h1>
-        <Cv theme={selectedColor} person={personalInfo} />
+        <Cv theme={selectedColor} person={localPersonalInfo} />
       </section>
       <ToastContainer autoClose={2500} />
     </main>

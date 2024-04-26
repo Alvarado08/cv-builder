@@ -7,6 +7,7 @@ export default function Section({
   type = "basic",
   isActive,
   onToggle,
+  onCancel,
   sectionIndex,
 }) {
   return (
@@ -32,11 +33,7 @@ export default function Section({
             />
           ))}
         {isActive && (
-          <Button
-            name="Cancel"
-            color="btn-accent"
-            onClick={() => onToggle(sectionIndex)}
-          />
+          <Button name="Cancel" color="btn-accent" onClick={onCancel} />
         )}
       </div>
     </section>

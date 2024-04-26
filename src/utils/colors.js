@@ -14,6 +14,11 @@ const colors = [
     value: "checked:bg-yellow-500",
     class: "bg-yellow-500",
   },
+  {
+    name: "Purple",
+    value: "checked:bg-purple-500",
+    class: "bg-purple-500",
+  },
 ];
 
 export default colors;
