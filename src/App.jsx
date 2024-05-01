@@ -56,6 +56,10 @@ function App() {
         ...localPersonalInfo.education,
         [e.target.name]: e.target.value,
       },
+      experience: {
+        ...localPersonalInfo.experience,
+        [e.target.name]: e.target.value,
+      },
     });
   };
 
@@ -64,16 +68,18 @@ function App() {
       <section className="space-y-3">
         <h1 className="text-xl font-bold mb-3">Sections</h1>
         <Section title="Theme" type="color">
-          {colors.map((color) => (
-            <ColorPicker
-              key={color.value}
-              colorName={color.name}
-              colorValue={color.value}
-              classValue={color.class}
-              isSelected={selectedColor === color.class}
-              onColorChange={handleColorChange}
-            />
-          ))}
+          <section className="flex items-center gap-3 flex-wrap">
+            {colors.map((color) => (
+              <ColorPicker
+                key={color.value}
+                colorName={color.name}
+                colorValue={color.value}
+                classValue={color.class}
+                isSelected={selectedColor === color.class}
+                onColorChange={handleColorChange}
+              />
+            ))}
+          </section>
         </Section>
         <Section
           title="Personal Information"
@@ -82,37 +88,39 @@ function App() {
           onCancel={handleCancelToggle}
           sectionIndex={1}
         >
-          <Input
-            label="Name"
-            name="name"
-            value={localPersonalInfo.general.name}
-            onChange={handlePersonalInfoChange2}
-            isDisabled={active === 0 || active !== 1}
-          />
-          <Input
-            label="Email"
-            name="email"
-            value={localPersonalInfo.general.email}
-            onChange={handlePersonalInfoChange2}
-            type="email"
-            isDisabled={active === 0 || active !== 1}
-          />
-          <Input
-            label="LinkedIn"
-            name="linkedin"
-            value={localPersonalInfo.general.linkedin}
-            onChange={handlePersonalInfoChange2}
-            type="text"
-            isDisabled={active === 0 || active !== 1}
-          />
-          <Input
-            label="Website"
-            name="website"
-            value={localPersonalInfo.general.website}
-            onChange={handlePersonalInfoChange2}
-            type="text"
-            isDisabled={active === 0 || active !== 1}
-          />
+          <div className="flex items-center gap-3 flex-wrap">
+            <Input
+              label="Name"
+              name="name"
+              value={localPersonalInfo.general.name}
+              onChange={handlePersonalInfoChange2}
+              isDisabled={active === 0 || active !== 1}
+            />
+            <Input
+              label="Email"
+              name="email"
+              value={localPersonalInfo.general.email}
+              onChange={handlePersonalInfoChange2}
+              type="email"
+              isDisabled={active === 0 || active !== 1}
+            />
+            <Input
+              label="LinkedIn"
+              name="linkedin"
+              value={localPersonalInfo.general.linkedin}
+              onChange={handlePersonalInfoChange2}
+              type="text"
+              isDisabled={active === 0 || active !== 1}
+            />
+            <Input
+              label="Website"
+              name="website"
+              value={localPersonalInfo.general.website}
+              onChange={handlePersonalInfoChange2}
+              type="text"
+              isDisabled={active === 0 || active !== 1}
+            />
+          </div>
         </Section>
         <Section
           title="Education"
@@ -121,56 +129,40 @@ function App() {
           onCancel={handleCancelToggle}
           sectionIndex={2}
         >
-          <Input
-            label="School"
-            name="school"
-            value={localPersonalInfo.education.school}
-            onChange={handlePersonalInfoChange2}
-            isDisabled={active === 0 || active !== 2}
-          />
-          <Input
-            label="Major"
-            name="major"
-            value={localPersonalInfo.education.major}
-            onChange={handlePersonalInfoChange2}
-            isDisabled={active === 0 || active !== 2}
-          />
-          <Input
-            label="Start Date"
-            name="startDate"
-            type="date"
-            value={localPersonalInfo.education.startDate}
-            onChange={handlePersonalInfoChange2}
-            isDisabled={active === 0 || active !== 2}
-          />
-          {!localPersonalInfo.education.presentStatus && (
+          <div className="flex items-center gap-3 flex-wrap">
             <Input
-              label="End Date"
-              name="endDate"
-              type="date"
-              value={localPersonalInfo.education.endDate}
+              label="School"
+              name="school"
+              value={localPersonalInfo.education.school}
               onChange={handlePersonalInfoChange2}
               isDisabled={active === 0 || active !== 2}
             />
-          )}
-          {localPersonalInfo.education.presentStatus ? (
-            <CheckBox
-              name="Present"
-              checked={localPersonalInfo.education.presentStatus}
+            <Input
+              label="Major"
+              name="major"
+              value={localPersonalInfo.education.major}
+              onChange={handlePersonalInfoChange2}
               isDisabled={active === 0 || active !== 2}
-              onChange={() => {
-                setLocalPersonalInfo({
-                  ...localPersonalInfo,
-                  education: {
-                    ...localPersonalInfo.education,
-                    presentStatus: !localPersonalInfo.education.presentStatus,
-                  },
-                });
-              }}
             />
-          ) : (
-            !localPersonalInfo.education.presentStatus &&
-            active === 2 && (
+            <Input
+              label="Start Date"
+              name="startDate"
+              type="date"
+              value={localPersonalInfo.education.startDate}
+              onChange={handlePersonalInfoChange2}
+              isDisabled={active === 0 || active !== 2}
+            />
+            {!localPersonalInfo.education.presentStatus && (
+              <Input
+                label="End Date"
+                name="endDate"
+                type="date"
+                value={localPersonalInfo.education.endDate}
+                onChange={handlePersonalInfoChange2}
+                isDisabled={active === 0 || active !== 2}
+              />
+            )}
+            {localPersonalInfo.education.presentStatus ? (
               <CheckBox
                 name="Present"
                 checked={localPersonalInfo.education.presentStatus}
@@ -185,8 +177,27 @@ function App() {
                   });
                 }}
               />
-            )
-          )}
+            ) : (
+              !localPersonalInfo.education.presentStatus &&
+              active === 2 && (
+                <CheckBox
+                  name="Present"
+                  checked={localPersonalInfo.education.presentStatus}
+                  isDisabled={active === 0 || active !== 2}
+                  onChange={() => {
+                    setLocalPersonalInfo({
+                      ...localPersonalInfo,
+                      education: {
+                        ...localPersonalInfo.education,
+                        presentStatus:
+                          !localPersonalInfo.education.presentStatus,
+                      },
+                    });
+                  }}
+                />
+              )
+            )}
+          </div>
         </Section>
         <Section
           title="Experience"
@@ -196,29 +207,35 @@ function App() {
           onCancel={handleCancelToggle}
           sectionIndex={3}
         >
-          <Input
-            label="Company"
-            name="company"
-            isDisabled={active === 0 || active !== 3}
-          />
-          <Input label="Role" isDisabled={active === 0 || active !== 3} />
-          <Input
-            label="Responsibility"
-            name="responsibility"
-            isDisabled={active === 0 || active !== 3}
-          />
-          <Input
-            label="Start Date"
-            name="startDate"
-            type="date"
-            isDisabled={active === 0 || active !== 3}
-          />
-          <Input
-            label="End Date"
-            name="endDate"
-            type="date"
-            isDisabled={active === 0 || active !== 3}
-          />
+          {localPersonalInfo.experience.map((exp, index) => (
+            <div>
+              <h2 className="text-xl font-semibold">{`Experience ${
+                index + 1
+              }`}</h2>
+
+              <div className="flex items-center gap-3 flex-wrap">
+                {Object.keys(exp).map((key) => (
+                  <Input
+                    key={index}
+                    label={
+                      key.includes("Date")
+                        ? key.includes("start")
+                          ? "Start Date"
+                          : "End Date"
+                        : key[0].toUpperCase() + key.slice(1)
+                    }
+                    type={
+                      key === "startDate" || key === "endDate" ? "date" : "text"
+                    }
+                    name={key}
+                    value={exp[key]}
+                    onChange={handlePersonalInfoChange2}
+                    isDisabled={active === 0 || active !== 3}
+                  />
+                ))}
+              </div>
+            </div>
+          ))}
         </Section>
       </section>
       <section>

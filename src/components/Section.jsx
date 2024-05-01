@@ -13,7 +13,7 @@ export default function Section({
   return (
     <section className="border p-3 rounded">
       <h2 className="text-2xl font-bold mb-3">{title}</h2>
-      <div className="flex items-center gap-3 flex-wrap">{children}</div>
+      <section>{children}</section>
       <div className="flex items-center gap-3 flex-wrap">
         {type === "multiple" && isActive && (
           <Button name="Add" color="btn-warning" />

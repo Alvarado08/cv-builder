@@ -14,9 +14,16 @@ const person = {
   },
   experience: [
     {
-      company: "Example Company",
+      company: "Awesome Company",
       role: "Software Engineer",
       responsibility: "Developed new features for the company's website.",
+      startDate: "2020-04-20",
+      endDate: "2022-06-15",
+    },
+    {
+      company: "Fun Company",
+      role: "Front End Developer",
+      responsibility: "Maintained the company's website.",
       startDate: "2020-04-20",
       endDate: "2022-06-15",
     },
