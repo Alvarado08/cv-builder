@@ -36,15 +36,6 @@ function App() {
   const handleColorChange = (color) => {
     setSelectedColor(color);
   };
-  const handlePersonalInfoChange = (e) => {
-    setLocalPersonalInfo({
-      ...localPersonalInfo,
-      general: {
-        ...localPersonalInfo.general,
-        [e.target.name]: e.target.value,
-      },
-    });
-  };
   const handlePersonalInfoChange2 = (e) => {
     setLocalPersonalInfo({
       ...localPersonalInfo,
@@ -56,10 +47,15 @@ function App() {
         ...localPersonalInfo.education,
         [e.target.name]: e.target.value,
       },
-      experience: {
-        ...localPersonalInfo.experience,
-        [e.target.name]: e.target.value,
-      },
+    });
+  };
+
+  const handleExperienceChange = (e, index) => {
+    setLocalPersonalInfo({
+      ...localPersonalInfo,
+      experience: localPersonalInfo.experience.map((exp, i) =>
+        i === index ? { ...exp, [e.target.name]: e.target.value } : exp
+      ),
     });
   };
 
@@ -229,7 +225,7 @@ function App() {
                     }
                     name={key}
                     value={exp[key]}
-                    onChange={handlePersonalInfoChange2}
+                    onChange={(e) => handleExperienceChange(e, index)}
                     isDisabled={active === 0 || active !== 3}
                   />
                 ))}
