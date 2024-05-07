@@ -203,35 +203,90 @@ function App() {
           onCancel={handleCancelToggle}
           sectionIndex={3}
         >
-          {localPersonalInfo.experience.map((exp, index) => (
-            <div>
-              <h2 className="text-xl font-semibold">{`Experience ${
-                index + 1
-              }`}</h2>
-
-              <div className="flex items-center gap-3 flex-wrap">
-                {Object.keys(exp).map((key) => (
-                  <Input
-                    key={index}
-                    label={
-                      key.includes("Date")
-                        ? key.includes("start")
-                          ? "Start Date"
-                          : "End Date"
-                        : key[0].toUpperCase() + key.slice(1)
-                    }
-                    type={
-                      key === "startDate" || key === "endDate" ? "date" : "text"
-                    }
-                    name={key}
-                    value={exp[key]}
-                    onChange={(e) => handleExperienceChange(e, index)}
-                    isDisabled={active === 0 || active !== 3}
-                  />
-                ))}
+          <div className="space-y-3 mb-3">
+            {localPersonalInfo.experience.map((exp, index) => (
+              <div className="collapse bg-white border-2 border-black">
+                <input type="checkbox" />
+                <div className="collapse-title text-xl font-medium">
+                  {`Experience ${index + 1}`}
+                </div>
+                <div className="collapse-content grid grid-cols-2 gap-3">
+                  {Object.keys(exp).map((key) => (
+                    <Input
+                      key={index}
+                      label={
+                        key.includes("Date")
+                          ? key.includes("start")
+                            ? "Start Date"
+                            : "End Date"
+                          : key[0].toUpperCase() + key.slice(1)
+                      }
+                      type={
+                        key === "startDate" || key === "endDate"
+                          ? "date"
+                          : "text"
+                      }
+                      name={key}
+                      value={exp[key]}
+                      onChange={(e) => handleExperienceChange(e, index)}
+                      isDisabled={active === 0 || active !== 3}
+                    />
+                  ))}
+                  {/* <div className="flex items-center gap-3 flex-wrap">
+                  {Object.keys(exp).map((key) => (
+                    <Input
+                      key={index}
+                      label={
+                        key.includes("Date")
+                          ? key.includes("start")
+                            ? "Start Date"
+                            : "End Date"
+                          : key[0].toUpperCase() + key.slice(1)
+                      }
+                      type={
+                        key === "startDate" || key === "endDate"
+                          ? "date"
+                          : "text"
+                      }
+                      name={key}
+                      value={exp[key]}
+                      onChange={(e) => handleExperienceChange(e, index)}
+                      isDisabled={active === 0 || active !== 3}
+                    />
+                  ))}
+                </div> */}
+                </div>
               </div>
-            </div>
-          ))}
+
+              // <div>
+              //   <h2 className="text-xl font-semibold">{`Experience ${
+              //     index + 1
+              //   }`}</h2>
+
+              //   <div className="flex items-center gap-3 flex-wrap">
+              //     {Object.keys(exp).map((key) => (
+              //       <Input
+              //         key={index}
+              //         label={
+              //           key.includes("Date")
+              //             ? key.includes("start")
+              //               ? "Start Date"
+              //               : "End Date"
+              //             : key[0].toUpperCase() + key.slice(1)
+              //         }
+              //         type={
+              //           key === "startDate" || key === "endDate" ? "date" : "text"
+              //         }
+              //         name={key}
+              //         value={exp[key]}
+              //         onChange={(e) => handleExperienceChange(e, index)}
+              //         isDisabled={active === 0 || active !== 3}
+              //       />
+              //     ))}
+              //   </div>
+              // </div>
+            ))}
+          </div>
         </Section>
       </section>
       <section>

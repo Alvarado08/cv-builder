@@ -1,4 +1,5 @@
 import Link from "./ui/Link";
+import Timeline from "./ui/Timeline";
 import Email from "./icons/Email";
 import LinkedIn from "./icons/LinkedIn";
 import Website from "./icons/Website";
@@ -39,9 +40,12 @@ export default function Cv({ person, theme }) {
           </Link>
         </div>
       </section>
-      <section className="h-full p-8 border-solid rounded-b border border-r-2 border-l-2 border-b-2 grid grid-cols-2 gap-4">
-        <section>
+      <section className="h-full p-8 border-solid rounded-b border border-r-2 border-l-2 border-b-2 grid grid-cols-3 gap-3">
+        <section className="col-span-2">
           <h1 className="text-xl font-bold">Experience</h1>
+          <div className="flex justify-center items-center">
+            <Timeline person={person} theme={theme} />
+          </div>
         </section>
         <section>
           <h1 className="text-xl font-bold">Education</h1>
