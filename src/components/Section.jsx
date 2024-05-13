@@ -8,6 +8,7 @@ export default function Section({
   isActive,
   onToggle,
   onCancel,
+  addExperience,
   sectionIndex,
 }) {
   return (
@@ -16,7 +17,7 @@ export default function Section({
       <section>{children}</section>
       <div className="flex items-center gap-3 flex-wrap">
         {type === "multiple" && isActive && (
-          <Button name="Add" color="btn-warning" />
+          <Button name="Add" color="btn-warning" onClick={addExperience} />
         )}
         {type !== "color" &&
           (isActive ? (

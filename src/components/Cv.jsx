@@ -44,7 +44,7 @@ export default function Cv({ person, theme }) {
         <section className="col-span-2">
           <h1 className="text-xl font-bold">Experience</h1>
           <div className="flex justify-center items-center">
-            <Timeline person={person} theme={theme} />
+            <Timeline person={person} />
           </div>
         </section>
         <section>
@@ -53,12 +53,16 @@ export default function Cv({ person, theme }) {
             <h3>{person.education.major}</h3>
             <h4>{person.education.school}</h4>
             <div className="flex items-center gap-1">
-              <span>{person.education.startDate}</span>
+              <span>{`${person.education.startDate.split("-")[0]}-${
+                person.education.startDate.split("-")[1]
+              }`}</span>
               <span>-</span>
               <span>
                 {person.education.presentStatus
                   ? "Present"
-                  : `${person.education.endDate}`}
+                  : `${person.education.endDate.split("-")[0]}-${
+                      person.education.endDate.split("-")[1]
+                    }`}
               </span>
             </div>
           </article>

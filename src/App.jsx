@@ -15,6 +15,8 @@ function App() {
   const [localPersonalInfo, setLocalPersonalInfo] = useState(person);
   const [selectedColor, setSelectedColor] = useState("bg-blue-500");
 
+  let localExperience = localPersonalInfo.experience;
+
   const handleSectionToggle = (sectionIndex) => {
     if (active !== 0) {
       setPersonalInfo(localPersonalInfo);
@@ -36,7 +38,7 @@ function App() {
   const handleColorChange = (color) => {
     setSelectedColor(color);
   };
-  const handlePersonalInfoChange2 = (e) => {
+  const handlePersonalInfoChange = (e) => {
     setLocalPersonalInfo({
       ...localPersonalInfo,
       general: {
@@ -56,6 +58,22 @@ function App() {
       experience: localPersonalInfo.experience.map((exp, i) =>
         i === index ? { ...exp, [e.target.name]: e.target.value } : exp
       ),
+    });
+  };
+
+  const handleAddExperience = () => {
+    setLocalPersonalInfo({
+      ...localPersonalInfo,
+      experience: [
+        ...localPersonalInfo.experience,
+        {
+          company: "",
+          role: "",
+          responsibility: "",
+          startDate: "",
+          endDate: "",
+        },
+      ],
     });
   };
 
@@ -89,14 +107,14 @@ function App() {
               label="Name"
               name="name"
               value={localPersonalInfo.general.name}
-              onChange={handlePersonalInfoChange2}
+              onChange={handlePersonalInfoChange}
               isDisabled={active === 0 || active !== 1}
             />
             <Input
               label="Email"
               name="email"
               value={localPersonalInfo.general.email}
-              onChange={handlePersonalInfoChange2}
+              onChange={handlePersonalInfoChange}
               type="email"
               isDisabled={active === 0 || active !== 1}
             />
@@ -104,7 +122,7 @@ function App() {
               label="LinkedIn"
               name="linkedin"
               value={localPersonalInfo.general.linkedin}
-              onChange={handlePersonalInfoChange2}
+              onChange={handlePersonalInfoChange}
               type="text"
               isDisabled={active === 0 || active !== 1}
             />
@@ -112,7 +130,7 @@ function App() {
               label="Website"
               name="website"
               value={localPersonalInfo.general.website}
-              onChange={handlePersonalInfoChange2}
+              onChange={handlePersonalInfoChange}
               type="text"
               isDisabled={active === 0 || active !== 1}
             />
@@ -130,14 +148,14 @@ function App() {
               label="School"
               name="school"
               value={localPersonalInfo.education.school}
-              onChange={handlePersonalInfoChange2}
+              onChange={handlePersonalInfoChange}
               isDisabled={active === 0 || active !== 2}
             />
             <Input
               label="Major"
               name="major"
               value={localPersonalInfo.education.major}
-              onChange={handlePersonalInfoChange2}
+              onChange={handlePersonalInfoChange}
               isDisabled={active === 0 || active !== 2}
             />
             <Input
@@ -145,7 +163,7 @@ function App() {
               name="startDate"
               type="date"
               value={localPersonalInfo.education.startDate}
-              onChange={handlePersonalInfoChange2}
+              onChange={handlePersonalInfoChange}
               isDisabled={active === 0 || active !== 2}
             />
             {!localPersonalInfo.education.presentStatus && (
@@ -154,7 +172,7 @@ function App() {
                 name="endDate"
                 type="date"
                 value={localPersonalInfo.education.endDate}
-                onChange={handlePersonalInfoChange2}
+                onChange={handlePersonalInfoChange}
                 isDisabled={active === 0 || active !== 2}
               />
             )}
@@ -201,10 +219,11 @@ function App() {
           isActive={active === 3}
           onToggle={handleSectionToggle}
           onCancel={handleCancelToggle}
+          addExperience={handleAddExperience}
           sectionIndex={3}
         >
           <div className="space-y-3 mb-3">
-            {localPersonalInfo.experience.map((exp, index) => (
+            {localExperience.map((exp, index) => (
               <div className="collapse bg-white border-2 border-black">
                 <input type="checkbox" />
                 <div className="collapse-title text-xl font-medium">
@@ -232,59 +251,8 @@ function App() {
                       isDisabled={active === 0 || active !== 3}
                     />
                   ))}
-                  {/* <div className="flex items-center gap-3 flex-wrap">
-                  {Object.keys(exp).map((key) => (
-                    <Input
-                      key={index}
-                      label={
-                        key.includes("Date")
-                          ? key.includes("start")
-                            ? "Start Date"
-                            : "End Date"
-                          : key[0].toUpperCase() + key.slice(1)
-                      }
-                      type={
-                        key === "startDate" || key === "endDate"
-                          ? "date"
-                          : "text"
-                      }
-                      name={key}
-                      value={exp[key]}
-                      onChange={(e) => handleExperienceChange(e, index)}
-                      isDisabled={active === 0 || active !== 3}
-                    />
-                  ))}
-                </div> */}
                 </div>
               </div>
-
-              // <div>
-              //   <h2 className="text-xl font-semibold">{`Experience ${
-              //     index + 1
-              //   }`}</h2>
-
-              //   <div className="flex items-center gap-3 flex-wrap">
-              //     {Object.keys(exp).map((key) => (
-              //       <Input
-              //         key={index}
-              //         label={
-              //           key.includes("Date")
-              //             ? key.includes("start")
-              //               ? "Start Date"
-              //               : "End Date"
-              //             : key[0].toUpperCase() + key.slice(1)
-              //         }
-              //         type={
-              //           key === "startDate" || key === "endDate" ? "date" : "text"
-              //         }
-              //         name={key}
-              //         value={exp[key]}
-              //         onChange={(e) => handleExperienceChange(e, index)}
-              //         isDisabled={active === 0 || active !== 3}
-              //       />
-              //     ))}
-              //   </div>
-              // </div>
             ))}
           </div>
         </Section>
