@@ -8,6 +8,8 @@ import Cv from "./components/Cv";
 import colors from "./utils/colors";
 import CheckBox from "./components/ui/CheckBox";
 import person from "./utils/person";
+import Button from "./components/ui/Button";
+import { Trash } from "./components/icons/Trash";
 
 function App() {
   const [active, setActive] = useState(0);
@@ -72,8 +74,16 @@ function App() {
           responsibility: "",
           startDate: "",
           endDate: "",
+          presentStatus: false,
         },
       ],
+    });
+  };
+
+  const handleExperienceDelete = (index) => {
+    setLocalPersonalInfo({
+      ...localPersonalInfo,
+      experience: localPersonalInfo.experience.filter((exp, i) => i !== index),
     });
   };
 
@@ -224,34 +234,122 @@ function App() {
         >
           <div className="space-y-3 mb-3">
             {localExperience.map((exp, index) => (
-              <div className="collapse bg-white border-2 border-black">
-                <input type="checkbox" />
-                <div className="collapse-title text-xl font-medium">
-                  {`Experience ${index + 1}`}
+              <div className="flex items-center gap-3">
+                <div className="collapse bg-white border-2 border-black">
+                  <input type="checkbox" />
+                  <div className="collapse-title text-xl font-medium">
+                    {`Experience ${index + 1}`}
+                  </div>
+                  <div className="collapse-content grid grid-cols-2 gap-3">
+                    {Object.keys(exp)
+                      .filter((key) => typeof exp[key] === "string")
+                      .map(
+                        (key) =>
+                          key === "endDate" ? (
+                            exp["presentStatus"] ? (
+                              <Input
+                                key={index}
+                                label="End Date"
+                                type="date"
+                                name="endDate"
+                                value={exp["endDate"]}
+                                onChange={(e) =>
+                                  handleExperienceChange(e, index)
+                                }
+                                isDisabled={active === 0 || active !== 3}
+                              />
+                            ) : (
+                              <CheckBox
+                                name="Present"
+                                key={index}
+                                checked={exp["presentStatus"]}
+                                onChange={() =>
+                                  (localExperience[index]["presentStatus"] =
+                                    !exp["presentStatus"])
+                                }
+                                isDisabled={active === 0 || active !== 3}
+                              />
+                            )
+                          ) : (
+                            <Input
+                              key={index}
+                              label={
+                                key.includes("Date")
+                                  ? key.includes("start")
+                                    ? "Start Date"
+                                    : "End Date"
+                                  : key[0].toUpperCase() + key.slice(1)
+                              }
+                              type={
+                                key === "startDate" || key === "endDate"
+                                  ? "date"
+                                  : "text"
+                              }
+                              name={key}
+                              value={exp[key]}
+                              onChange={(e) => handleExperienceChange(e, index)}
+                              isDisabled={active === 0 || active !== 3}
+                            />
+                          )
+                        // exp["presentStatus"] && key === "endDate" ? (
+                        //   <CheckBox
+                        //     name="Present"
+                        //     key={index}
+                        //     checked={exp["presentStatus"]}
+                        //     onChange={() =>
+                        //       (localExperience[index]["presentStatus"] =
+                        //         !exp["presentStatus"])
+                        //     }
+                        //     isDisabled={active === 0 || active !== 3}
+                        //   />
+                        // ) : exp["presentStatus"] && key !== "endDate" ? (
+                        //   <CheckBox
+                        //     name="Present"
+                        //     key={index}
+                        //     checked={exp["presentStatus"]}
+                        //     onChange={() =>
+                        //       (localExperience[index]["presentStatus"] =
+                        //         !exp["presentStatus"])
+                        //     }
+                        //     isDisabled={active === 0 || active !== 3}
+                        //   />
+                        // ) : key === "endDate" ? (
+                        //   <Input
+                        //     key={index}
+                        //     label="End Date"
+                        //     type="date"
+                        //     name="endDate"
+                        //     value={exp["endDate"]}
+                        //     onChange={(e) => handleExperienceChange(e, index)}
+                        //     isDisabled={active === 0 || active !== 3}
+                        //   />
+                        // ) : (
+                        //   <Input
+                        //     key={index}
+                        //     label={
+                        //       key.includes("Date")
+                        //         ? key.includes("start")
+                        //           ? "Start Date"
+                        //           : "End Date"
+                        //         : key[0].toUpperCase() + key.slice(1)
+                        //     }
+                        //     type={
+                        //       key === "startDate" || key === "endDate"
+                        //         ? "date"
+                        //         : "text"
+                        //     }
+                        //     name={key}
+                        //     value={exp[key]}
+                        //     onChange={(e) => handleExperienceChange(e, index)}
+                        //     isDisabled={active === 0 || active !== 3}
+                        //   />
+                        // )
+                      )}
+                  </div>
                 </div>
-                <div className="collapse-content grid grid-cols-2 gap-3">
-                  {Object.keys(exp).map((key) => (
-                    <Input
-                      key={index}
-                      label={
-                        key.includes("Date")
-                          ? key.includes("start")
-                            ? "Start Date"
-                            : "End Date"
-                          : key[0].toUpperCase() + key.slice(1)
-                      }
-                      type={
-                        key === "startDate" || key === "endDate"
-                          ? "date"
-                          : "text"
-                      }
-                      name={key}
-                      value={exp[key]}
-                      onChange={(e) => handleExperienceChange(e, index)}
-                      isDisabled={active === 0 || active !== 3}
-                    />
-                  ))}
-                </div>
+                <Button onClick={() => handleExperienceDelete(index)}>
+                  <Trash />
+                </Button>
               </div>
             ))}
           </div>

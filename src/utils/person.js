@@ -19,6 +19,7 @@ const person = {
       responsibility: "Developed new features for the company's website.",
       startDate: "2019-04-20",
       endDate: "2020-06-15",
+      presentStatus: true,
     },
     {
       company: "Fun Company",
@@ -26,6 +27,7 @@ const person = {
       responsibility: "Maintained the company's website.",
       startDate: "2021-04-20",
       endDate: "2022-06-15",
+      presentStatus: false,
     },
   ],
 };

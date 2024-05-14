@@ -53,15 +53,15 @@ export default function Cv({ person, theme }) {
             <h3>{person.education.major}</h3>
             <h4>{person.education.school}</h4>
             <div className="flex items-center gap-1">
-              <span>{`${person.education.startDate.split("-")[0]}-${
+              <span className="font-semibold">{`${
                 person.education.startDate.split("-")[1]
-              }`}</span>
+              }/${person.education.startDate.split("-")[0]}`}</span>
               <span>-</span>
-              <span>
+              <span className="font-semibold">
                 {person.education.presentStatus
                   ? "Present"
-                  : `${person.education.endDate.split("-")[0]}-${
-                      person.education.endDate.split("-")[1]
+                  : `${person.education.endDate.split("-")[1]}/${
+                      person.education.endDate.split("-")[0]
                     }`}
               </span>
             </div>
