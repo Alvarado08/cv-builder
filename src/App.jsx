@@ -10,6 +10,7 @@ import CheckBox from "./components/ui/CheckBox";
 import person from "./utils/person";
 import Button from "./components/ui/Button";
 import { Trash } from "./components/icons/Trash";
+import Experience from "./components/Experience";
 
 function App() {
   const [active, setActive] = useState(0);
@@ -23,7 +24,7 @@ function App() {
     if (active !== 0) {
       setPersonalInfo(localPersonalInfo);
       setActive(0);
-      toast.success("Saved !", {
+      toast.success("Saved!", {
         position: "bottom-right",
       });
     } else {
@@ -33,7 +34,7 @@ function App() {
   const handleCancelToggle = () => {
     setLocalPersonalInfo(personalInfo);
     setActive(0);
-    toast.error("Cancelled !", {
+    toast.error("Cancelled!", {
       position: "bottom-right",
     });
   };
@@ -63,6 +64,16 @@ function App() {
     });
   };
 
+  function handleExperiencePresentStatusChange(index, newPresentStatus) {
+    // Assuming localPersonalInfo is part of your component's state
+    setLocalPersonalInfo((prevInfo) => ({
+      ...prevInfo,
+      experience: prevInfo.experience.map((exp, i) =>
+        i === index ? { ...exp, presentStatus: newPresentStatus } : exp
+      ),
+    }));
+  }
+
   const handleAddExperience = () => {
     setLocalPersonalInfo({
       ...localPersonalInfo,
@@ -78,12 +89,18 @@ function App() {
         },
       ],
     });
+    toast.success("Experience created!", {
+      position: "bottom-right",
+    });
   };
 
   const handleExperienceDelete = (index) => {
     setLocalPersonalInfo({
       ...localPersonalInfo,
       experience: localPersonalInfo.experience.filter((exp, i) => i !== index),
+    });
+    toast.info(`Experience ${index + 1} deleted!`, {
+      position: "bottom-right",
     });
   };
 
@@ -232,127 +249,15 @@ function App() {
           addExperience={handleAddExperience}
           sectionIndex={3}
         >
-          <div className="space-y-3 mb-3">
-            {localExperience.map((exp, index) => (
-              <div className="flex items-center gap-3">
-                <div className="collapse bg-white border-2 border-black">
-                  <input type="checkbox" />
-                  <div className="collapse-title text-xl font-medium">
-                    {`Experience ${index + 1}`}
-                  </div>
-                  <div className="collapse-content grid grid-cols-2 gap-3">
-                    {Object.keys(exp)
-                      .filter((key) => typeof exp[key] === "string")
-                      .map(
-                        (key) =>
-                          key === "endDate" ? (
-                            exp["presentStatus"] ? (
-                              <Input
-                                key={index}
-                                label="End Date"
-                                type="date"
-                                name="endDate"
-                                value={exp["endDate"]}
-                                onChange={(e) =>
-                                  handleExperienceChange(e, index)
-                                }
-                                isDisabled={active === 0 || active !== 3}
-                              />
-                            ) : (
-                              <CheckBox
-                                name="Present"
-                                key={index}
-                                checked={exp["presentStatus"]}
-                                onChange={() =>
-                                  (localExperience[index]["presentStatus"] =
-                                    !exp["presentStatus"])
-                                }
-                                isDisabled={active === 0 || active !== 3}
-                              />
-                            )
-                          ) : (
-                            <Input
-                              key={index}
-                              label={
-                                key.includes("Date")
-                                  ? key.includes("start")
-                                    ? "Start Date"
-                                    : "End Date"
-                                  : key[0].toUpperCase() + key.slice(1)
-                              }
-                              type={
-                                key === "startDate" || key === "endDate"
-                                  ? "date"
-                                  : "text"
-                              }
-                              name={key}
-                              value={exp[key]}
-                              onChange={(e) => handleExperienceChange(e, index)}
-                              isDisabled={active === 0 || active !== 3}
-                            />
-                          )
-                        // exp["presentStatus"] && key === "endDate" ? (
-                        //   <CheckBox
-                        //     name="Present"
-                        //     key={index}
-                        //     checked={exp["presentStatus"]}
-                        //     onChange={() =>
-                        //       (localExperience[index]["presentStatus"] =
-                        //         !exp["presentStatus"])
-                        //     }
-                        //     isDisabled={active === 0 || active !== 3}
-                        //   />
-                        // ) : exp["presentStatus"] && key !== "endDate" ? (
-                        //   <CheckBox
-                        //     name="Present"
-                        //     key={index}
-                        //     checked={exp["presentStatus"]}
-                        //     onChange={() =>
-                        //       (localExperience[index]["presentStatus"] =
-                        //         !exp["presentStatus"])
-                        //     }
-                        //     isDisabled={active === 0 || active !== 3}
-                        //   />
-                        // ) : key === "endDate" ? (
-                        //   <Input
-                        //     key={index}
-                        //     label="End Date"
-                        //     type="date"
-                        //     name="endDate"
-                        //     value={exp["endDate"]}
-                        //     onChange={(e) => handleExperienceChange(e, index)}
-                        //     isDisabled={active === 0 || active !== 3}
-                        //   />
-                        // ) : (
-                        //   <Input
-                        //     key={index}
-                        //     label={
-                        //       key.includes("Date")
-                        //         ? key.includes("start")
-                        //           ? "Start Date"
-                        //           : "End Date"
-                        //         : key[0].toUpperCase() + key.slice(1)
-                        //     }
-                        //     type={
-                        //       key === "startDate" || key === "endDate"
-                        //         ? "date"
-                        //         : "text"
-                        //     }
-                        //     name={key}
-                        //     value={exp[key]}
-                        //     onChange={(e) => handleExperienceChange(e, index)}
-                        //     isDisabled={active === 0 || active !== 3}
-                        //   />
-                        // )
-                      )}
-                  </div>
-                </div>
-                <Button onClick={() => handleExperienceDelete(index)}>
-                  <Trash />
-                </Button>
-              </div>
-            ))}
-          </div>
+          <Experience
+            experience={localExperience}
+            activeSection={active}
+            handleExperienceChange={handleExperienceChange}
+            handleExperiencePresentStatusChange={
+              handleExperiencePresentStatusChange
+            }
+            handleExperienceDelete={handleExperienceDelete}
+          />
         </Section>
       </section>
       <section>
