@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { v4 as uuidv4 } from "uuid";
+
 import Input from "./components/ui/Input";
 import ColorPicker from "./components/ui/ColorPicker";
 import Section from "./components/Section";
 import Cv from "./components/Cv";
-import colors from "./utils/colors";
+import Experience from "./components/Experience";
 import CheckBox from "./components/ui/CheckBox";
+import { Trash } from "./components/icons/Trash";
+
+import colors from "./utils/colors";
 import person from "./utils/person";
 import Button from "./components/ui/Button";
-import { Trash } from "./components/icons/Trash";
-import Experience from "./components/Experience";
 
 function App() {
   const [active, setActive] = useState(0);
@@ -19,6 +22,7 @@ function App() {
   const [selectedColor, setSelectedColor] = useState("bg-blue-500");
 
   let localExperience = localPersonalInfo.experience;
+  const uuid = uuidv4();
 
   const handleSectionToggle = (sectionIndex) => {
     if (active !== 0) {
@@ -80,6 +84,7 @@ function App() {
       experience: [
         ...localPersonalInfo.experience,
         {
+          id: uuid,
           company: "",
           role: "",
           responsibility: "",

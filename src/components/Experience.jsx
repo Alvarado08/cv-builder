@@ -13,7 +13,7 @@ export default function Experience({
   return (
     <div className="space-y-3 mb-3">
       {experience.map((exp, index) => (
-        <div className="flex items-center gap-3">
+        <div key={exp.id} className="flex items-center gap-3">
           <div className="collapse bg-white border-2 border-black">
             <input type="checkbox" />
             <div className="collapse-title text-xl font-medium">
@@ -24,7 +24,7 @@ export default function Experience({
                 if (key === "endDate" && !exp["presentStatus"]) {
                   return (
                     <Input
-                      key={index}
+                      key={key}
                       label="End Date"
                       type="date"
                       name="endDate"
@@ -38,7 +38,7 @@ export default function Experience({
                   return (
                     <CheckBox
                       name="Present"
-                      key={index}
+                      key={exp.id}
                       checked={exp["presentStatus"]}
                       onChange={() => {
                         // Toggle the presentStatus for the specific experience item
@@ -55,7 +55,7 @@ export default function Experience({
                 if (key !== "presentStatus" && key !== "endDate") {
                   return (
                     <Input
-                      key={index}
+                      key={key}
                       label={
                         key.includes("Date")
                           ? key.includes("start")

@@ -14,6 +14,7 @@ const person = {
   },
   experience: [
     {
+      id: "1",
       company: "Awesome Company",
       role: "Software Engineer",
       responsibility: "Developed new features for the company's website.",
@@ -22,6 +23,7 @@ const person = {
       presentStatus: true,
     },
     {
+      id: "2",
       company: "Fun Company",
       role: "Front End Developer",
       responsibility: "Maintained the company's website.",
