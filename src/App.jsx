@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { v4 as uuidv4 } from "uuid";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 import Input from "./components/ui/Input";
 import ColorPicker from "./components/ui/ColorPicker";
@@ -9,11 +10,11 @@ import Section from "./components/Section";
 import Cv from "./components/Cv";
 import Experience from "./components/Experience";
 import CheckBox from "./components/ui/CheckBox";
-import { Trash } from "./components/icons/Trash";
+import Button from "./components/ui/Button";
+import Pdf from "./components/Pdf";
 
 import colors from "./utils/colors";
 import person from "./utils/person";
-import Button from "./components/ui/Button";
 
 function App() {
   const [active, setActive] = useState(0);
@@ -267,7 +268,18 @@ function App() {
       </section>
       <section>
         <h1 className="text-xl font-bold mb-3">CV</h1>
-        <Cv theme={selectedColor} person={localPersonalInfo} />
+        <div className="flex flex-col gap-3">
+          <Cv theme={selectedColor} person={localPersonalInfo} />
+          <PDFDownloadLink document={<Pdf />} fileName="Myresume.pdf">
+            {({ loading }) =>
+              loading ? (
+                <Button name="Loading..." color="btn-secondary" />
+              ) : (
+                <Button name="Download" color="btn-neutral" />
+              )
+            }
+          </PDFDownloadLink>
+        </div>
       </section>
       <ToastContainer autoClose={2500} />
     </main>

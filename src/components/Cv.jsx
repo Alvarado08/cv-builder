@@ -5,7 +5,7 @@ import LinkedIn from "./icons/LinkedIn";
 import Website from "./icons/Website";
 export default function Cv({ person, theme }) {
   return (
-    <div className="h-full md:h-[50rem]">
+    <div className="h-full max-h-[90vh]">
       <section className={`p-8 ${theme} rounded space-y-3`}>
         <h1
           className={`text-3xl font-bold ${
