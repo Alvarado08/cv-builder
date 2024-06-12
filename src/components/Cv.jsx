@@ -5,7 +5,7 @@ import LinkedIn from "./icons/LinkedIn";
 import Website from "./icons/Website";
 export default function Cv({ person, theme }) {
   return (
-    <div className="h-full max-h-[90vh]">
+    <div className="h-auto">
       <section className={`p-8 ${theme} rounded space-y-3`}>
         <h1
           className={`text-3xl font-bold ${
@@ -40,8 +40,8 @@ export default function Cv({ person, theme }) {
           </Link>
         </div>
       </section>
-      <section className="h-full p-8 border-solid rounded-b border border-r-2 border-l-2 border-b-2 grid grid-cols-3 gap-3">
-        <section className="col-span-2">
+      <section className="h-full p-8 border-solid rounded-b border border-r-2 border-l-2 border-b-2 md:grid grid-cols-3 gap-3">
+        <section className="md:col-span-2">
           <h1 className="text-xl font-bold">Experience</h1>
           <div className="flex justify-center items-center">
             <Timeline person={person} />

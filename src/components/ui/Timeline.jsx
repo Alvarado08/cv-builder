@@ -3,7 +3,8 @@ import { TimelineXp } from "../icons/TimelineXp";
 export default function Timeline({ person }) {
   const sortedExperience = person.experience
     .slice()
-    .sort((a, b) => +b.endDate.split("-")[0] - +a.endDate.split("-")[0]);
+    .sort((a, b) => +b.endDate.split("-")[0] - +a.endDate.split("-")[0])
+    .sort((a, b) => (a.presentStatus ? -1 : b.presentStatus ? 1 : 0));
   return (
     <ul className="timeline timeline-vertical">
       {sortedExperience.map((exp, index) => (
@@ -19,7 +20,9 @@ export default function Timeline({ person }) {
           </div>
           <div className="timeline-end timeline-box">{`${
             exp.startDate.split("-")[0]
-          } - ${exp.endDate.split("-")[0]}`}</div>
+          } - ${
+            exp.presentStatus ? "Present" : exp.endDate.split("-")[0]
+          }`}</div>
           {person.experience.length - 1 !== index && <hr />}
         </li>
       ))}

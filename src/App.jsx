@@ -111,7 +111,7 @@ function App() {
   };
 
   return (
-    <main className="p-5 grid md:grid-cols-2 gap-4">
+    <main className="p-5 grid lg:grid-cols-2 gap-4">
       <section className="space-y-3">
         <h1 className="text-xl font-bold mb-3">Sections</h1>
         <Section title="Theme" type="color">
@@ -268,9 +268,21 @@ function App() {
       </section>
       <section>
         <h1 className="text-xl font-bold mb-3">CV</h1>
-        <div className="flex flex-col gap-3">
+        <div className="mb-3 h-auto">
           <Cv theme={selectedColor} person={localPersonalInfo} />
-          <PDFDownloadLink document={<Pdf />} fileName="Myresume.pdf">
+        </div>
+        <div>
+          <PDFDownloadLink
+            document={
+              <Pdf
+                person={localPersonalInfo}
+                theme={selectedColor}
+                colors={colors}
+                experience={localExperience}
+              />
+            }
+            fileName={`${localPersonalInfo.general.name} Resume.pdf`}
+          >
             {({ loading }) =>
               loading ? (
                 <Button name="Loading..." color="btn-secondary" />
