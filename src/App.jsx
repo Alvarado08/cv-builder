@@ -111,7 +111,7 @@ function App() {
   };
 
   return (
-    <main className="p-5 grid lg:grid-cols-2 gap-4">
+    <main className="w-full p-5 grid lg:grid-cols-2 gap-4">
       <section className="space-y-3">
         <h1 className="text-xl font-bold mb-3">Sections</h1>
         <Section title="Theme" type="color">

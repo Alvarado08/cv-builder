@@ -16,7 +16,7 @@ export default function Cv({ person, theme }) {
         >
           {person.general.name}
         </h1>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center flex-wrap gap-4">
           <Link
             name={person.general.email}
             theme={theme === "bg-blue-500" || theme === "bg-purple-500"}

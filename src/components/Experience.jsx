@@ -19,7 +19,7 @@ export default function Experience({
             <div className="collapse-title text-xl font-medium">
               {`Experience ${index + 1}`}
             </div>
-            <div className="collapse-content grid grid-cols-2 gap-3">
+            <div className="collapse-content grid md:grid-cols-2 gap-3">
               {Object.keys(exp)
                 .filter((key) => key !== "id")
                 .map((key) => {
